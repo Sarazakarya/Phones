@@ -1,30 +1,41 @@
 
-import { BrowserRouter, Route, Routes, Outlet, Link } from 'react-router-dom';
-import HomePage from './Pages/HomePage';
-import PagePages from './Pages/pagePages';
-import PrtofolioPage from './Pages/prtofolioPage';
-import ShopPage from './Pages/shopPage';
-import Page404 from './Pages/Page404';
-import Header from './componant/Header';
-import Footer from './componant/footer';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import Shop from './pages/Shop/shop';
+import Cart from './pages/cart/cart';
+import MainLayout from './componatnts/Layout/MainLayOut';
+import Login from './pages/Login/Login';
+import Sign from './pages/Sign/Sign';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { RecoilRoot } from 'recoil';
+import IsNotLogin from './componatnts/Protectedlogin/IsNotLogin';
+import IsLogin from './componatnts/Protectedlogin/IsLogin';
+import SingleProduct from './pages/SingleProduct/SingleProduct';
+
+
+
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
+    <div className='App'>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<Home />} />
+              <Route path="shop" element={<IsLogin><Shop /></IsLogin>} />
+              <Route path="product/:id" element={<IsLogin><SingleProduct /></IsLogin>} />
+              <Route path="cart" element={<IsLogin><Cart /></IsLogin>} />
+              <Route path="Login" element={<IsNotLogin><Login /></IsNotLogin>} />
+              <Route path="Sign" element={<IsNotLogin><Sign /></IsNotLogin>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
 
-      <Routes>
-        <Route path='/'>
-          <Route index element={<HomePage />} />
-          <Route path="/pages" element={<PagePages />} />
-          <Route path='/profolio' element={<PrtofolioPage />} />
-          <Route path='/shop' element={<ShopPage />} />
-          <Route path='*' element={<Page404 />} />
-        </Route>
-      </Routes>
+      </RecoilRoot>
 
-      <Outlet />
-      <Footer />
-    </BrowserRouter>
+      <ToastContainer />
+    </div>
   );
 }
 

@@ -1,0 +1,9 @@
+.product__card__img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.links a {
+    text-decoration: none;
+    color: black;
+}
