@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Sign() {
   const navigat = useNavigate();
   function handelregister(values, actions) {
-    const newData = { ...values };
+    const newData = { ...values, cart: [] };
     delete newData.confirmpassword;
     axios.post("http://localhost:3000/users", newData).then(() => {
       console.log("email register");
